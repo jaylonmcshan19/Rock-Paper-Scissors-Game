@@ -1,8 +1,8 @@
-/* Scoring for user and computer */
+/* Computer score and user default score, it will update when we play the game */
 let computerScore = 0;
-let playerScore = 0;
+let userScore = 0;
 
-/* Storing variables for future use */
+/* storing all variables */
 const scoreInfo = document.getElementById("winnerofthisround")
 const scoreMessage = document.getElementById('scoreMessage')
 let playersSign = document.getElementById('playersSign')
@@ -14,103 +14,94 @@ const paperBtn = document.getElementById('paperBtn')
 const scissorBtn = document.getElementById('scissorsBtn')
 let winnerofthisround = document.getElementById('winnerofthisround')
 
-
-
-/* How the computer selects */
+/* How the computer selects between rock, paper or scissors */
 function getComputerChoice () {
-  const choices = ["r", "p", "s"];
-  const randomNumber = Math.floor(Math.random() * 3);
-  return choices[randomNumber];
-
+    const choices = ["r", 'p', 's']
+    const randomNumber = Math.floor(Math.random() * 3)
+    return choices[randomNumber];
 }
-/* What happens when the Player wins */
-function win(userChoice, computerChoice) {
- playerScore++
- playerScores.textContent = `Player :  ${playerScore}`
- computerScores.textContent = `Computer : ${computerScore}`;
- winnerofthisround.textContent = 'PLAYER WINS'
- if (userChoice === 'r' && computerChoice == 's' ) {
-   scoreMessage.textContent = 'Rock beats Scissors :)'
- }
-updateChoices(userChoice, computerChoice)
- }
- /*What happens when the computer wins */
-function lose(userChoice, computerChoice) {
-  computerScore++
-  playerScores.textContent = `Player : ${playerScore}`;
-  computerScores.textContent = `Computer : ${computerScore}`;
-  winnerofthisround.textContent = 'COMPUTER WINS'
-  updateChoices(userChoice, computerChoice)
+/* How the game is played */
+function game(userChocie) {
+    const computerChoice = getComputerChoice ();
+    /* if user wins */
+    switch (userChocie + computerChoice) {
+        /* User wins */
+        case 'rs' :
+        case 'pr' :
+        case 'sp' :
+            win (userChocie, computerChoice)
+            break
+            /* User looses */
+        case 'rp' :
+        case 'ps' :
+        case 'sr' :
+            lose (userChocie, computerChoice)
+             break
+             /* Tie */
+        case 'rr' :
+        case 'pp' :
+        case 'ss' :
+            tie (userChocie, computerChoice)
+            break
+        }
 }
-/*What happens when it is a draw */
-function draw(userChoice, computerChoice) {
-  playerScores.textContent = `player : ${playerScore}`;
-  computerScores.textContent = `Computer : ${computerScore}`
-  winnerofthisround.textContent = 'DRAW HAHA'
-  updateChoices(userChoice, computerChoice)
-}
-/* What happens when the user selects the choices */
-function updateChoices (userChoice , computerChoice) {
-  switch (userChoice) {
-    case 'r':
-      playersSign.textContent = '✊';
-       break
-     case 'p':
-       playersSign.textContent = '✋';
-       break
-     case 's':
-       playersSign.textContent = '✌';
-       break}
-  switch (computerChoice) {
-    case 'r' :
-      computersSign.textContent = '✊'
-       break
-    case 'p':
-       computersSign.textContent = '✋'
-        break
-    case 's' :
-      computersSign.textContent = '✌'
-      break
-  }
-}
-
-
-/* Taking the user choice  */
-function game(userChoice) {
-const computerChoice = getComputerChoice();
-/*If user wins */
-switch (userChoice + computerChoice) {
-  case "rs":
-  case "pr":
-  case "sp":
-      win(userChoice, computerChoice)
-     break;
-/* If computer wins */
-  case "rp":
-  case "ps":
-  case "sr":
-    lose(userChoice, computerChoice)
-     break;
-/* If it is a draw */
-  case "rr":
-  case "pp":
-  case "ss":
-    draw(userChoice, computerChoice)
-     break;
-} 
-}
-/* What happens when we click the rock paper scissor buttons */
-
-
+/* What happens when we click the rock papers scissors button */
 function main() {
-  rockBtn.addEventListener("click",function() {
-    game('r')
-   })
-   paperBtn.addEventListener("click", function() {
-     game('p')
-   })
-   scissorBtn.addEventListener("click", function() {
-     game('s')
-   })
-  }
-  main()
+    rockBtn.addEventListener("click", function() {
+        game('r')
+    })
+    paperBtn.addEventListener("click", function() {
+        game('p')
+    })
+    scissorBtn.addEventListener("click", function() {
+        game('s')
+    })
+}
+main()
+/* Shows in the UI the selections between rock, paper and scissors */
+function updateChoices (userChoice, computerChoice) {
+    switch (userChoice) {
+        case 'r':
+            playersSign.textContent = '✊'
+             break
+        case 'p':
+            playersSign.textContent = '✋'
+             break
+        case 's':
+            playersSign.textContent = '✌'      
+    }
+    switch (computerChoice) {
+        case 'r':
+            computersSign.textContent = '✊'
+            break
+        case 'p':
+            computersSign.textContent = '✋'
+            break
+        case 's':
+            computersSign.textContent = '✌'
+    }
+}
+/* What happens when the user wins, computer wins and a tie */
+function win (userChocie, computerChoice) {
+    userScore++ 
+    winnerofthisround.textContent = 'YOU WIN :)'
+    playerScores.textContent = `Player: ${userScore}`;
+    computerScores.textContent = `Computer: ${computerScore} `
+    updateChoices(userChocie, computerChoice);
+  
+}
+function lose (userChocie, computerChoice) {
+computerScore++
+winnerofthisround.textContent = "COMPUTER WINS :("
+computerScores.textContent = `Computer: ${computerScore}`
+playerScores.textContent = `Player: ${userScore}`
+updateChoices(userChocie, computerChoice);
+}
+function tie (userChocie, computerChoice) {
+    userScore++
+    computerScore++
+    computerScores.textContent = `Computer: ${computerScore}`
+    playerScores.textContent = `Player: ${userScore}`
+    winnerofthisround.textContent = "IT'S A DRAW HAHA"
+    updateChoices(userChocie, computerChoice);
+}
