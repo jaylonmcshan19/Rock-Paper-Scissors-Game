@@ -1,4 +1,79 @@
+:root {
+    --primary-light: #ddd;
+    --primary-dark: #222831;
+    --secondary-dark: #393e46;
+    --secondary-dark-hover: #4a4f57;
+    --secondary-dark-active: #5b5f68;
+    --header: #111720;
+    --primary-yellow: #fac650;
+  }
+
 body {
     margin:0;
     padding: 0;
+    background-color: var(--primary-dark)
+}
+/* Title Section */
+.title {
+    text-align: center;
+    padding: 35px;
+    background-color: var(--header);
+    color: var(--primary-yellow);
+}
+
+/* Telling user info section */
+.score-info {
+    text-align: center;
+    font-size: 32px;
+}
+.score-message {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 60px;
+}
+.scoring-section {
+    display: flex;
+    justify-content: center;
+    font-size: 80px;
+    gap: 70px;
+}
+
+/* Scoring Section */
+.display-score {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+/* Button options */
+.weapon-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+}
+.btn {
+    background-color: var(--secondary-dark);
+    border-radius:9px;
+}
+.btn:hover {
+    background-color: var(--secondary-dark-hover);
+    cursor: pointer;
+  }
+.btn-square {
+    width: 160px;
+    height: 160px;
+}
+.sign {
+    font-size: 80px;
+}
+.footer {
+    text-align: center;
+    margin-top: 200px;
+}
+.copyright {
+    font-size: 20px;
 }
